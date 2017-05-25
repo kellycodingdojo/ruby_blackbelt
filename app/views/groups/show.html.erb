@@ -1,0 +1,28 @@
+<a href="/sessions/<%= @user.id %>" data-method="DELETE">Logout</a>
+<a class="stuff" href="/groups" >Back To The DashBoard</a> <br>
+
+<h2><%= @event.title %></h2>
+<h3><%= @event.description %></h3>
+
+<p>
+  <% if @groups.exists?(user_id: current_user.id) %>
+  <a href="/joins/<%= @event.id %>" data-method="delete">Leave group</a>
+  <% else %>
+  <a href="/joins/<%= @event.id %>" data-method="post">Join group</a>
+  <% end %>
+  <br>
+</p>
+
+<h3>Created by:
+<% if @event.user_id == current_user.id %>
+  YOU!	
+<% else %> 
+<%= @event.user.first_name %> <%= @event.user.last_name %></h3>
+<% end %>
+</p></h3>
+
+
+<h3>Members:</h3>
+<% @groups.each do |joiners| %>
+<p><%= joiners.user.first_name %> <%= joiners.user.last_name %></p>
+<% end %>

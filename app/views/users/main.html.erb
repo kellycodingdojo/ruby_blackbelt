@@ -1,0 +1,56 @@
+<style>
+	.left{
+		display: inline-block;
+	}
+	.left_form{
+		display: inline-block;
+	}
+	.right{
+		display: inline-block;
+		margin-left: 100px;
+		vertical-align: top;
+	}
+
+</style>
+
+
+
+	<% if flash[:errors] %>
+	<% flash[:errors].each do |e| %>
+		<p><%= e %></p>
+	<% end %>
+<% end %>
+
+
+
+<div class="left">
+<h3>Register a New User</h3>
+<form class="left_form" action="/register" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <p>First Name:</p>
+  <input type="text" name="user[first_name]" id="first_name" placeholder="Enter First Name Here">
+  <p>Last Name:</p>
+  <input type="text" name="user[last_name]" id="last_name" placeholder="Enter Last Name Here">
+  <p>Email:</p>
+  <input type="text" name="user[email]" id="email" placeholder="Enter Email Here">
+  <p>Password:</p>
+  <input type="password" name="user[password]" id="password" placeholder="Enter Password Here">
+  <p>Password Confirmation:</p>
+  <input type="password" name="user[password_confirmation]" id="password_confirmation" placeholder="Enter Password Confirmation Here">
+  <input type="submit" name="Register" value="Register">
+</form>
+</div>
+
+
+
+<div class="right">
+<h3> Login A existing User</h3>
+<form action="/login" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <p>Email:</p>
+  <input type="text" name="user[email]" id="Email" placeholder="Enter Email Here">
+  <p>Password:</p>
+  <input type="text" name="user[password]" id="Password" placeholder="Enter Password Here">
+  <input type="submit" name="Login" value="Login">
+</form>
+</div>

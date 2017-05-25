@@ -1,0 +1,40 @@
+<style>
+	form{
+		outline: solid black 1px;
+		width: 500px;
+	}
+</style>
+
+<% if flash[:errors] %>
+	<% flash[:errors].each do |e| %>
+		<p><%= e %></p>
+	<% end %>
+<% end %>
+
+
+<a href="/sessions/<%= @user.id %>" data-method="DELETE">Logout</a>
+
+<p>Hello you are logged in as....  <%= @user.first_name%>  <%= @user.last_name %>! </p>
+
+<form action="/add_group" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <p>Create a group.</p>
+  Org Name:<textarea name="group[title]" id="title" rows="2" cols="30"></textarea><br>
+  Description:<textarea name="group[description]" id="description" rows="2" cols="30"></textarea>
+  <input type="submit" name="Add A Group" value="Create">
+</form>
+
+<p>Here are the groups that you may join. </p>
+<hr>
+<% @group.each do |event| %>
+  <p>
+    <a href="/groups/<%= event.id %>"><%= event.title %></a>
+    <br>
+    <p>Members: <%= event.joins.count %></p>
+    <%= event.description %>
+    </p>
+    <% if event.user == current_user %>
+    <a href="/remove/<%= event.id %>" data-method="delete">Delete group</a>
+    <% end %>
+  <hr>
+<% end %>
